@@ -1,4 +1,4 @@
-import { User, UserData } from "protocols/types";
+import { User, UserData } from "protocols/user-types";
 import { findByEmail, createUser } from "../repositories/user-repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

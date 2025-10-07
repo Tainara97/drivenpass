@@ -6,3 +6,4 @@ export type User = {
 }
 
 export type UserData = Omit<User, "id">;
+

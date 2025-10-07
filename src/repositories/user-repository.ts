@@ -1,5 +1,5 @@
 import prisma from "../database";
-import { UserData } from "protocols/types";
+import { UserData } from "protocols/user-types";
 
 export async function findByEmail(email: string) {
     return await prisma.user.findFirst({

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { UserData } from "protocols/types";
+import { UserData } from "protocols/user-types";
 
 export const signUpSchema = Joi.object<UserData>({
     name: Joi.string().required(),

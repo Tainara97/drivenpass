@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserData, User } from "protocols/types";
+import { UserData, User } from "protocols/user-types";
 import { createUserService, signInUserService } from "../services/user-service";
 
 export async function createUser(req: Request, res: Response) {

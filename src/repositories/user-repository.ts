@@ -15,3 +15,15 @@ export async function createUser(userData: UserData) {
 
     return user;
 }
+
+export async function deleteUser(userId: number) {
+    return prisma.user.delete({
+        where: {id: userId}
+    });
+}
+
+export async function deleteAllCredentials(userId: number) {
+    return prisma.credentials.deleteMany({
+        where: {userId}
+    });
+}

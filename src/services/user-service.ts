@@ -1,5 +1,5 @@
 import { User, UserData } from "protocols/user-types";
-import { findByEmail, createUser } from "../repositories/user-repository";
+import { findByEmail, createUser, deleteAllCredentials, deleteUser } from "../repositories/user-repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -41,3 +41,15 @@ export async function signInUserService(userData: {email: string, password: stri
 
      return token;
 }   
+
+export async function deleteUserService(userId: number) {
+    await deleteAllCredentials(userId);
+
+    const deletedUser = await deleteUser(userId);
+
+    if (!deletedUser) {
+        throw {type: "notFound", message: "User not found."};
+    }
+
+    return deletedUser;
+}

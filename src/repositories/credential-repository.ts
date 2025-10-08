@@ -49,5 +49,19 @@ export async function updateCredentials(id: number, userId: number, credentialDa
     return uptdatedCredential;
 }
 
+export async function deleteCredential(id: number, userId: number) {
+    const existingCredential = await prisma.credentials.findFirst({
+        where: {id, userId}
+    })
+
+    if (!existingCredential) return null;
+
+    const deletedCredential = await prisma.credentials.delete({
+        where: {id}
+    });
+
+    return deletedCredential;
+}
+
 
 

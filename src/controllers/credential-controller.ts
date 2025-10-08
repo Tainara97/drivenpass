@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { CredentialData } from "../protocols/credential-types";
-import { createCredentialService, getCredentialByIdService, getCredentialsService, updateCredentialsService } from "../services/credential-service";
+import { createCredentialService, deleteCredentialService, getCredentialByIdService, getCredentialsService, updateCredentialsService } from "../services/credential-service";
 import { AuthRequest } from "types/express";
 
 export async function createCredential(req: AuthRequest, res: Response) {
@@ -35,6 +35,15 @@ export async function updateCredentials(req: AuthRequest, res: Response) {
     const credentialData = req.body;
 
     await updateCredentialsService(id, userId, credentialData);
+
+    return res.sendStatus(204);
+}
+
+export async function deleteCredential(req: AuthRequest, res: Response) {
+    const id = Number(req.params.id);
+    const userId = req.userId;
+
+    await deleteCredentialService(id, userId);
 
     return res.sendStatus(204);
 }

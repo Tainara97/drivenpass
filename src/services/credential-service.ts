@@ -1,6 +1,6 @@
 import Cryptr from "cryptr";
 import { CredentialData } from "../protocols/credential-types";
-import { createCredential, findByTitle, getCredentialById, getCredentials, updateCredentials } from "../repositories/credential-repository";
+import { createCredential, deleteCredential, findByTitle, getCredentialById, getCredentials, updateCredentials } from "../repositories/credential-repository";
 
 const cryptr = new Cryptr(process.env.CRYPT_SECRET as string);
 
@@ -55,5 +55,13 @@ export async function updateCredentialsService(id: number, userId: number, crede
         ...credentialData,
         password: encryptedPassword
     }); 
+
+}
+
+export async function deleteCredentialService(id: number, userId: number) {
+    const credentialToDelete = await deleteCredential(id, userId);
+    if(!credentialToDelete) {
+        throw {type: "notFound", message: "Credential not found."}
+    }
 
 }

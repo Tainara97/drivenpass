@@ -1,7 +1,6 @@
 import Cryptr from "cryptr";
 import { CredentialData } from "../protocols/credential-types";
-import { createCredential, findByTitle, getCredentialById, getCredentials } from "../repositories/credential-repository";
-import { number } from "joi";
+import { createCredential, findByTitle, getCredentialById, getCredentials, updateCredentials } from "../repositories/credential-repository";
 
 const cryptr = new Cryptr(process.env.CRYPT_SECRET as string);
 
@@ -47,4 +46,14 @@ export async function getCredentialByIdService(userId: number, id: number) {
     };
 
     return decryptedCredential;
+}
+
+export async function updateCredentialsService(id: number, userId: number, credentialData: CredentialData) {
+    const encryptedPassword = cryptr.encrypt(credentialData.password);
+
+    await updateCredentials(id, userId, {
+        ...credentialData,
+        password: encryptedPassword
+    }); 
+
 }
